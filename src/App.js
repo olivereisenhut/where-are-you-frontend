@@ -1,18 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Header from './Header';
+import Counter from './Counter';
+
 import './App.css';
 
 class App extends Component {
+  
+  state = {
+    count: 0
+  };
+  
+  onClick = (event) => {
+    this.setState({count: this.state.count + 1});
+  }
+  
+  
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Header title="Where Are You"/>
+        <main className="Content">
+          <Counter onClick={this.onClick} count={this.state.count}/>
+        </main>
       </div>
     );
   }
