@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Header from './Header';
 import GoogleLogin from 'react-google-login';
 
 import './LoginScreen.css';
@@ -19,7 +18,6 @@ class LoginScreen extends Component {
   render() {
     return (
         <div className="Login-container">
-            <Header title="Where Are You" />
 
             <main className="Content">
                <GoogleLogin
@@ -29,7 +27,7 @@ class LoginScreen extends Component {
                     onFailure={responseGoogle}
                     offline={false}
                     style={{}}>
-                    
+
                 </GoogleLogin>
             </main>
         </div>
