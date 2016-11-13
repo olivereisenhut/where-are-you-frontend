@@ -24,7 +24,9 @@ class App extends Component {
         const newUser = {
           Name: profile['familyName'],
           Prename: profile['givenName'],
-          Mail: profile['email']
+          Mail: profile['email'],
+          TokenId: data['tokenId'],
+          ImageUrl: profile['imageUrl']
         };
         console.log(newUser);
         fetch(`${Config.API_URL}/user/new`, {
