@@ -4249,6 +4249,10 @@ progress@^1.1.8:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/progress/-/progress-1.1.8.tgz#e260c78f6161cdd9b0e56cc3e0a85de17c7a57be"
 
+promise-polyfill:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/promise-polyfill/-/promise-polyfill-6.0.2.tgz#d9c86d3dc4dc2df9016e88946defd69b49b41162"
+
 promise@^7.1.1, promise@7.1.1:
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/promise/-/promise-7.1.1.tgz#489654c692616b8aa55b0724fa809bb7db49c5bf"
@@ -5423,7 +5427,7 @@ whatwg-encoding@^1.0.1:
   dependencies:
     iconv-lite "0.4.13"
 
-whatwg-fetch@>=0.10.0, whatwg-fetch@1.0.0:
+whatwg-fetch, whatwg-fetch@>=0.10.0, whatwg-fetch@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-1.0.0.tgz#01c2ac4df40e236aaa18480e3be74bd5c8eb798e"
 
