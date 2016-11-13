@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Button from './Button';
+import Button from '../Button/Button';
 
 
 class Counter extends Component {
@@ -8,7 +8,7 @@ class Counter extends Component {
     return (
       <div>
         <span>{this.props.count}</span>
-        
+
         <Button callback={this.props.onClick} label="Count up" />
       </div>
     );

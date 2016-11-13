@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory } from 'react-router';
-import App from './App';
-import LoginScreen from './LoginScreen';
+import App from './Containers/App/App';
+import LoginScreen from './Containers/LoginScreen/LoginScreen';
 
 import './index.css';
 

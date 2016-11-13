@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Header from './Header';
-import Counter from './Counter';
+import Header from '../../Components/Header/Header';
+import Counter from '../../Components/Counter/Counter';
 
 import './App.css';
 
