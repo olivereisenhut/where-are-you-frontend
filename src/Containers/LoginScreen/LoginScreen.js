@@ -24,7 +24,7 @@ class LoginScreen extends Component {
                <GoogleLogin
                   onClick={this.onClick}
                     clientId={'135317923400-spd82dqbrhcbq5k6nvskhdodgtb34ana.apps.googleusercontent.com'}
-                    onSuccess={responseGoogle}
+                    onSuccess={this.props.handleLogin}
                     onFailure={responseGoogle}
                     offline={false}
                     style={{}}>
