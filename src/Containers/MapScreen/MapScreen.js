@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import GoogleMapComponent from '../../Components/GoogleMaps/GoogleMapComponent';
+import TrackerMap from '../../Components/GoogleMaps/TrackerMap';
 import './MapScreen.css';
 
 class MapScreen extends Component {
 
   render() {
 		return (
-			<div>        
-				<h1>Google Maps</h1>
-				<GoogleMapComponent />
+			<div style={{height: '400px' }}>        
+				<TrackerMap  />
 			</div>
     );
   }
