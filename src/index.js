@@ -15,10 +15,9 @@ ReactDOM.render((
     <Route path="/" component={App} >
       <Route path="/login" component={LoginScreen} />
 			<Route path="/track" component={MapScreen} />
-			<Route path="/friends" component={FriendsListScreen} >
-				<Route path="add" component={AddFriendScreen} />
+			<Route path="/friends" component={FriendsListScreen} />
+			<Route path="/friends/add" component={AddFriendScreen} />
 			</Route>
-    </Route>
   </Router>
   ), document.getElementById('root')
 );
