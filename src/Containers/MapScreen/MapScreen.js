@@ -4,7 +4,6 @@ import './MapScreen.css';
 
 class MapScreen extends Component {
 
-
   render() {
 		return (
 			<div>        

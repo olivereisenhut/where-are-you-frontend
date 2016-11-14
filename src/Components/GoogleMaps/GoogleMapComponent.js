@@ -78,13 +78,13 @@ class GoogleMapComponent extends Component {
 
   render() {
     return (
-       <div style={{height: `100%`}}>
+       <div>
         <GettingStartedGoogleMap
           containerElement={
-            <div style={{ height: `100%` }} />
+            <div className="MapContainer" />
           }
           mapElement={
-            <div style={{ height: `100%` }} />
+            <div className="MapElement" />
           }
           onMapLoad={this.handleMapLoad}
           onMapClick={this.handleMapClick}
