@@ -1,18 +1,24 @@
+import React, { Component } from 'react';
+
 import canUseDOM from "can-use-dom";
 import raf from "raf";
 
-import React, { Component } from 'react';
-
-
-import { withGoogleMap, GoogleMap } from "react-google-maps";
+import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 import './TrackerMap.css';
 
 const SimpleMapExampleGoogleMap = withGoogleMap(props => (
   <GoogleMap
+		ref={props.onMapLoad}
     defaultZoom={14}
     defaultCenter={{ lat: 47.0478519, lng: 9.440610500000048 }}
 		center={props.center}
-  />
+  >
+		{props.markers.map(marker => (
+      <Marker
+        {...marker}
+      />
+    ))}
+	</GoogleMap>
 ));
 
 const geolocation = (
@@ -29,11 +35,25 @@ class TrackerMap extends Component {
 
 	state = {
     center: null,
-    content: null,
-    radius: 6000,
+    markers: [{
+      position: {
+        lat: 25.0112183,
+        lng: 121.52067570000001,
+      },
+      key: `Taiwan`,
+      defaultAnimation: 2
+    }]
   };
 
   isUnmounted = false;
+
+	handleMapLoad = this.handleMapLoad.bind(this);
+
+	handleMapLoad(map) {
+    this._mapComponent = map;
+  }
+
+
 
  componentDidMount() {
     const tick = () => {
@@ -88,6 +108,9 @@ class TrackerMap extends Component {
           <div style={{ height: `100%` }} />
         }
 				center={this.state.center}
+        onMapLoad={this.handleMapLoad}
+				markers={this.state.markers}
+
       />
     );
   }
