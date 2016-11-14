@@ -42,7 +42,7 @@ class GoogleMapComponent extends Component {
     }
   }
 
-handleMapClick(event) {
+	handleMapClick(event) {
     const nextMarkers = [
       ...this.state.markers,
       {
@@ -79,9 +79,6 @@ handleMapClick(event) {
   render() {
     return (
        <div style={{height: `100%`}}>
-        <Helmet
-          title="Getting Started"
-        />
         <GettingStartedGoogleMap
           containerElement={
             <div style={{ height: `100%` }} />

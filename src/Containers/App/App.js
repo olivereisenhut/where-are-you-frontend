@@ -2,22 +2,14 @@ import React, { Component } from 'react';
 import Config from '../../config';
 
 import Header from '../../Components/Header/Header';
-import Counter from '../../Components/Counter/Counter';
 
 import './App.css';
 
 class App extends Component {
 
     state = {
-        count: 0,
         user: {}
     };
-
-    onClick = (event) => {
-        this.setState({
-            count: this.state.count + 1
-        });
-    }
 
     handleLogin = (data) => {
         const profile = data['profileObj']
@@ -57,7 +49,6 @@ class App extends Component {
       <div className="App">
         <Header title="Where Are You"/>
         <main className="Content">
-          <Counter onClick={this.onClick} count={this.state.count}/>
           {childrenWithAppState}
         </main>
       </div>
