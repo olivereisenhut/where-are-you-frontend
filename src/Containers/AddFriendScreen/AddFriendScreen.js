@@ -28,9 +28,12 @@ class AddFriendScreen extends Component {
 			<div className="AddFriendContainer">
 				<div className="container">
 					<input type="search" placeholder="search" />
-					<ul>
-						<FriendListItem image="https://avatars3.githubusercontent.com/u/6823854?v=3&s=460" name="Dario" id="5" callback={null}/>
-					</ul>
+						<FriendListItem image="https://avatars3.githubusercontent.com/u/6823854?v=3&s=460" name="Dario" id="5" callback={null} callbacklabel="add"/>
+						<FriendListItem image="https://avatars3.githubusercontent.com/u/6823854?v=3&s=460" name="Dario" id="5" callback={null} callbacklabel="add"/>
+
+						<FriendListItem image="https://avatars3.githubusercontent.com/u/6823854?v=3&s=460" name="Dario" id="5" callback={null} callbacklabel="add"/>
+			
+			
 				</div>
 			</div>
     );

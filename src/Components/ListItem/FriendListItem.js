@@ -10,7 +10,7 @@ class FriendListItem extends Component {
 				<img src={this.props.image} alt={this.props.name} />
 				<p>{this.props.id}</p>
 				<p>{this.props.name}</p>
-				<Button callback={this.props.callback} label="del"/>
+				<Button callback={this.props.callback} label={this.props.callbacklabel}/>
 			</div>
 		);
   }
