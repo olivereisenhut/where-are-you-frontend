@@ -19,7 +19,7 @@ class AddFriendScreen extends Component {
 				"image_url": "https://lh3.googleusercontent.com/-pczIEOT8Ii0/AAAAAAAAAAI/AAAAAAAAASU/HSEY6s_Znjw/s96-c/photo.jpg"
     	}],
 			"image_url": "https://lh3.googleusercontent.com/-pczIEOT8Ii0/AAAAAAAAAAI/AAAAAAAAASU/HSEY6s_Znjw/s96-c/photo.jpg"
-  	}];
+  	}]
 	}
 	
   render() {
