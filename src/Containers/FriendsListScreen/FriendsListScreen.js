@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import FriendListItem from '../../Components/ListItem/FriendListItem';
 
 import './FriendsListScreen.css';
-import '../../Components/Friend/Friend';
 
 class FriendsListScreen extends Component {
 
@@ -36,9 +35,6 @@ class FriendsListScreen extends Component {
 				);
 		});
 		
-		console.log(this.state.friends)
-		console.log(friends);
-		console.log("TEST");
 		
 		return (
 			<div className = "FriendsList-Container">        
