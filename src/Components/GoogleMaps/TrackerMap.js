@@ -37,10 +37,10 @@ class TrackerMap extends Component {
     center: null,
     markers: [{
       position: {
-        lat: 25.0112183,
-        lng: 121.52067570000001,
+        lat: 47.1218764,
+        lng: 9.486947999999984,
       },
-      key: `Taiwan`,
+      key: `Sevelen`,
       defaultAnimation: 2
     }]
   };
