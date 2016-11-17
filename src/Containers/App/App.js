@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Config from '../../config';
-
 import Header from '../../Components/Header/Header';
 
 import './App.css';
@@ -26,11 +25,15 @@ class App extends Component {
       });
     }
 
-		handleDeleteUser = (friendId) => {
+		componentDidMount() {
+			if (!this.state.user.Id && this.props.location.pathname != '/login') {
+				this.props.router.push('/login');
+			}
+		}
 
+		handleDeleteUser = (friendId) => {
       if (!friendId) {
         console.log("No friend id defined")
-        return
       }
 
       const self = this;
@@ -50,7 +53,6 @@ class App extends Component {
 		}
 
     handleLogin = (data) => {
-
         const profile = data['profileObj']
         const newUser = {
           Name: profile['familyName'],

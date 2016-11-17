@@ -7,7 +7,6 @@ import MapScreen from './Containers/MapScreen/MapScreen';
 import AddFriendScreen from './Containers/AddFriendScreen/AddFriendScreen';
 import FriendsListScreen from './Containers/FriendsListScreen/FriendsListScreen';
 
-
 import './index.css';
 
 ReactDOM.render((
