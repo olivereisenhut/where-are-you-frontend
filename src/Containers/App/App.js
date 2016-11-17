@@ -27,6 +27,7 @@ class App extends Component {
     }
 
 		handleDeleteUser(userId) {
+			console.log(userId);
 			console.log('User should be deleted');
 		}
 
