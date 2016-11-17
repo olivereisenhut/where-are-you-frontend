@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FriendListItem from '../../Components/ListItem/FriendListItem';
+import SearchField from '../../Components/Input/SearchField';
 import './AddFriendScreen.css';
 
 class AddFriendScreen extends Component {
@@ -12,7 +13,7 @@ class AddFriendScreen extends Component {
 					"name": "Eisenhut",
 					"email": "oliver.eisenhut@gmail.com",
 					"friends": ["1","2"],
-					"image_url": "https://lh3.googleusercontent.com/-pczIEOT8Ii0/AAAAAAAAAAI/AAAAAAAAASU/HSEY6s_Znjw/s96-c/photo.jpg"
+					"image_url": "http://kingofwallpapers.com/lama/lama-006.jpg"
 				},
 			{
 					"id": 2,
@@ -20,18 +21,17 @@ class AddFriendScreen extends Component {
 					"name": "Eisenhut",
 					"email": "oliver.eisenhut@gmail.com",
 					"friends": ["1","2"],
-					"image_url": "https://lh3.googleusercontent.com/-pczIEOT8Ii0/AAAAAAAAAAI/AAAAAAAAASU/HSEY6s_Znjw/s96-c/photo.jpg"
+					"image_url": "http://kingofwallpapers.com/lama/lama-006.jpg"
 				}
 		]
 	}
 	
-  render() {
-		
+ 	render() {	
 		const users = this.state.users.map((user) => {
 			return (
 				<FriendListItem key={user.id} 
 					id={user.id} 
-					name={user.name} callback={null} image={user.image_url}/>
+					name={user.name} callback={null} image={user.image_url} callbacklabel={"add"}/>
 				);
 		});
 		
@@ -39,8 +39,8 @@ class AddFriendScreen extends Component {
 		return (
 			<div className="AddFriendContainer">
 				<div className="container">
-					<input className="SearchField" type="search" placeholder="search" />
-					 { users }
+					<SearchField />
+				 	{ users }
 				</div>
 			</div>
     );
