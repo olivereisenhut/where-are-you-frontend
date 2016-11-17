@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router'
 import FriendListItem from '../../Components/ListItem/FriendListItem';
 
 import './FriendsListScreen.css';
@@ -25,21 +26,25 @@ class FriendsListScreen extends Component {
 				}
 		]
 	}
-	
+
   render() {
 		const friends = this.state.friends.map((friend) => {
 			return (
-				<FriendListItem key={friend.id} 
-					id={friend.id} 
-					name={friend.prename +" "+ friend.name} callbacklabel='Delete' callback={this.props.handleDeleteUser} image={friend.image_url}/>
+				<FriendListItem key={friend.id}
+					id={friend.id}
+					name={`${friend.prename} ${friend.name}`}
+					callbacklabel='Delete'
+					callback={this.props.handleDeleteUser}
+					image={friend.image_url}/>
 				);
 		});
-		
-		
+
+
 		return (
-			<div className="FriendsList-Container">        
+			<div className="friendlist-container">
 				<div className="container">
 					{ friends }
+					<Link to="/friends/add">Add new friend</Link>
 				</div>
 			</div>
     );

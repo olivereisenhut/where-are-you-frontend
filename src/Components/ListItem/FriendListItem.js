@@ -10,7 +10,7 @@ class FriendListItem extends Component {
 
   render() {
     return (
-			<div className="FriendWrapper">
+			<div className="friend-wrapper">
 				<img src={this.props.image} alt={this.props.name} />
 
 				<div className="user-info">

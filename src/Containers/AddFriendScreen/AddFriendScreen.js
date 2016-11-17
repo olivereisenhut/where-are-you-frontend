@@ -46,24 +46,30 @@ class AddFriendScreen extends Component {
 				}
 		]
 	}
-	
+
 	searchUpdated = (term) => {
 		this.setState({searchTerm: term});
   }
-	
-	render() {	
-		const filteredUsers = this.state.users.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))		
-	
+
+	render() {
+		const filteredUsers = this.state.users.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
+
 		return (
 			<div className="AddFriendContainer">
 				<div className="container">
 					<SearchInput className="search-input" onChange={this.searchUpdated} />
 					{filteredUsers.map(user => {
 						return (
-							<FriendListItem key={user.id} id={user.id} name={user.prename + " " +user.name} callback={null} image={user.image_url} callbacklabel={"add"}/>
+							<FriendListItem
+								key={user.id}
+								id={user.id}
+								name={`${user.prename} ${user.name}`}
+								callback={null}
+								image={user.image_url}
+								callbacklabel={"add"}/>
 						);
 					})}
-					
+
 					<Link to="/friends">Back</Link>
 				</div>
 			</div>
@@ -72,4 +78,3 @@ class AddFriendScreen extends Component {
 }
 
 export default AddFriendScreen;
- 

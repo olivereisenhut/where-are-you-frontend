@@ -26,7 +26,7 @@ class App extends Component {
     }
 
 		componentDidMount() {
-			if (!this.state.user.Id && this.props.location.pathname != '/login') {
+			if (!this.state.user.Id && this.props.location.pathname !== '/login') {
 				this.props.router.push('/login');
 			}
 		}

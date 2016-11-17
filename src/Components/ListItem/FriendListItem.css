@@ -1,10 +1,10 @@
-.FriendWrapper {
+.friend-wrapper {
 	color: #FFF;
 	background-color: #175E60;
 	width: 100%;
 	min-height: 100px;
 	margin: 5px 0;
-	
+
 	display: -ms-flexbox;
 	display: -webkit-box;
 	display: flex;
@@ -19,13 +19,13 @@
 	align-items: center;
 }
 
-.FriendWrapper .user-info {
+.friend-wrapper  .user-info {
 	padding: 15px;
 }
-.FriendWrapper .action-panel {
+.friend-wrapper  .action-panel {
 	margin-left: auto;
 }
 
-.FriendWrapper img {
+.friend-wrapper  img {
 	max-width: 100px;
 }
