@@ -6,6 +6,33 @@ import './App.css';
 
 class App extends Component {
 
+    constructor(props) {
+      super(props);
+
+      //send all five seconds the location to the api
+      window.setInterval(this.sendLocation, 5000);
+    }
+
+    sendLocation(coordinates) {
+      //TODO send this stuff to the api
+      if (this.state.user.Id) {
+        const self = this;
+        fetch(`${Config.API_URL}/coordinate/${self.state.user.Id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(function(coordinates) {
+            return response.json()
+        }).then(function(json) {
+            self.setNewUser(json);
+        }).catch(function(ex) {
+            console.log('parsing failed', ex)
+        });
+      }
+
+    }
+
     state = {
         user: {
         }
