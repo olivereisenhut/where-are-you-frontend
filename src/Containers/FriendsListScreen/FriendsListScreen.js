@@ -43,11 +43,9 @@ class FriendsListScreen extends Component {
 		
 		return (
 			<div className="FriendsList-Container">        
-				<ul>
-					<li>
-						{ friends }
-					</li>
-				</ul>
+				<div className="container">
+					{ friends }
+				</div>
 			</div>
     );
   }
