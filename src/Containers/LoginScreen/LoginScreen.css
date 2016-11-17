@@ -1,0 +1,20 @@
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 75px);
+
+
+
+}
+
+.google-login {
+  padding: 12px;
+  background-color: #ea4335;
+  color: #fff;
+}
+
+.google-login:hover {
+  transition: background-color 0.5s;
+  background-color: #F74738;
+}
