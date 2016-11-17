@@ -26,13 +26,31 @@ class App extends Component {
       });
     }
 
-		handleDeleteUser(userId) {
-			console.log(userId);
-			console.log('User should be deleted');
+		handleDeleteUser = (friendId) => {
+
+      if (!friendId) {
+        console.log("No friend id defined")
+        return
+      }
+
+      const self = this;
+
+      fetch(`${Config.API_URL}/friends/${self.state.user.Id}/${friendId}`, {
+          method: 'DELETE',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+      }).then(function(response) {
+          return response.json()
+      }).then(function(json) {
+          self.setNewUser(json);
+      }).catch(function(ex) {
+          console.log('parsing failed', ex)
+      });
 		}
 
     handleLogin = (data) => {
-      
+
         const profile = data['profileObj']
         const newUser = {
           Name: profile['familyName'],
