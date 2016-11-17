@@ -26,6 +26,10 @@ class App extends Component {
       });
     }
 
+		handleDeleteUser(userId) {
+			console.log('User should be deleted');
+		}
+
     handleLogin = (data) => {
       
         const profile = data['profileObj']
@@ -59,7 +63,8 @@ class App extends Component {
     const childrenWithAppState = React.Children.map(this.props.children,
      (child) => React.cloneElement(child, {
        appState: this.state,
-       handleLogin: this.handleLogin
+       handleLogin: this.handleLogin,
+			 handleDeleteUser: this.handleDeleteUser
      })
     );
 

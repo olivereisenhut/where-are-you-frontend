@@ -26,16 +26,12 @@ class FriendsListScreen extends Component {
 		]
 	}
 	
-	deleteRecord() {
-		console.log('User deleted');
-	}
-	
   render() {
 		const friends = this.state.friends.map((friend) => {
 			return (
 				<FriendListItem key={friend.id} 
 					id={friend.id} 
-					name={friend.prename +" "+ friend.name} callbacklabel='Delete' callback={this.deleteRecord} image={friend.image_url}/>
+					name={friend.prename +" "+ friend.name} callbacklabel='Delete' callback={this.props.handleDeleteUser} image={friend.image_url}/>
 				);
 		});
 		
