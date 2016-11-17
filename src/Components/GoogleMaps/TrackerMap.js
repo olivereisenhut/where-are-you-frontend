@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Config from '../../config';
 
 import canUseDOM from "can-use-dom";
 import raf from "raf";
@@ -35,32 +36,71 @@ class TrackerMap extends Component {
 
 	state = {
     center: null,
-    markers: [{
-      position: {
-        lat: 47.1218764,
-        lng: 9.486947999999984,
-      },
-      key: `Sevelen`,
-      defaultAnimation: 2
-    }]
+    markers: [],
+		coordinates: {
+			lat: 3,
+			lng: 2
+		}
   };
 
+	// handle coordinates
+	updateCoordinates(data) {
+		
+		const updatedMarkers = [
+      	...this.state.markers,
+      	{
+        	position: {lat: data['latitude'], lng: data['longitude']},
+        	defaultAnimation: 0,
+					title: 'My targets location',
+					label: 'T',
+        	key: data['user_id']
+      	}
+    	];
+					
+			this.setState({
+				markers: updatedMarkers,
+				coordinates: {
+					lat: data['latitude'],
+					lng: data['longitude']
+				}
+			});
+		
+	}
+	
+	getCoordinates() {
+		const self = this;
+				
+		fetch(`${Config.API_URL}/coordinate/${this.props.id}`, {
+				method: 'GET',
+				headers: {
+						'Content-Type': 'application/json'
+				}
+		}).then(function(response) {
+				return response.json()
+		}).then(function(json) {
+				self.updateCoordinates(json);
+		}).catch(function(ex) {
+				console.log('parsing failed', ex)
+		});	
+	}
+	
+
+
+	// Handle Map and markers
   isUnmounted = false;
-
 	handleMapLoad = this.handleMapLoad.bind(this);
-
 	handleMapLoad(map) {
     this._mapComponent = map;
   }
 
-
-
- componentDidMount() {
+	componentDidMount() {
+		
+		this.getCoordinates();
+		
     const tick = () => {
       if (this.isUnmounted) {
         return;
       }
-      this.setState({ radius: Math.max(this.state.radius - 20, 0) });
 
       if (this.state.radius > 200) {
         raf(tick);
@@ -77,7 +117,21 @@ class TrackerMap extends Component {
         },
         content: `Location found using HTML5.`,
       });
-
+			
+  		const nextMarkers = [
+      	...this.state.markers,
+      	{
+        	position: {lat: position.coords.latitude, lng: position.coords.longitude},
+        	defaultAnimation: 0,
+					title: "My location",
+					label: "Me",
+        	key: Date.now() // Add a key property for: http://fb.me/react-warning-keys
+      	}
+    	];
+			this.setState({
+				markers: nextMarkers,
+			});
+			
       raf(tick);
     }, (reason) => {
       if (this.isUnmounted) {
@@ -99,6 +153,7 @@ class TrackerMap extends Component {
   }
 
   render() {
+				
     return (
 		 	<SimpleMapExampleGoogleMap
 				containerElement={
@@ -110,7 +165,6 @@ class TrackerMap extends Component {
 				center={this.state.center}
         onMapLoad={this.handleMapLoad}
 				markers={this.state.markers}
-
       />
     );
   }

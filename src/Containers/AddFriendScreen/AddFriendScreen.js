@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router'
+
 import SearchInput, {createFilter} from 'react-search-input'
 import FriendListItem from '../../Components/ListItem/FriendListItem';
 import './AddFriendScreen.css';
@@ -61,6 +63,8 @@ class AddFriendScreen extends Component {
 							<FriendListItem key={user.id} id={user.id} name={user.prename + " " +user.name} callback={null} image={user.image_url} callbacklabel={"add"}/>
 						);
 					})}
+					
+					<Link to="/friends">Back</Link>
 				</div>
 			</div>
     );
