@@ -16,10 +16,8 @@ class LoginScreen extends Component {
   }
 
   render() {
-    //TODO send id token to backend-service => https://developers.google.com/identity/sign-in/web/backend-auth
     return (
         <div className="Login-container">
-
             <main className="Content">
                <GoogleLogin
                   onClick={this.onClick}
@@ -28,7 +26,6 @@ class LoginScreen extends Component {
                     onFailure={responseGoogle}
                     offline={false}
                     style={{}}>
-
                 </GoogleLogin>
             </main>
         </div>
