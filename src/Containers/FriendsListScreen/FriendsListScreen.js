@@ -13,7 +13,7 @@ class FriendsListScreen extends Component {
 					"name": "Eisenhut",
 					"email": "oliver.eisenhut@gmail.com",
 					"friends": ["1","2"],
-					"image_url": "https://lh3.googleusercontent.com/-pczIEOT8Ii0/AAAAAAAAAAI/AAAAAAAAASU/HSEY6s_Znjw/s96-c/photo.jpg"
+					"image_url": "https://i.ytimg.com/vi/KEkrWRHCDQU/maxresdefault.jpg"
 				},
 			{
 					"id": 2,
@@ -21,13 +21,12 @@ class FriendsListScreen extends Component {
 					"name": "Eisenhut",
 					"email": "oliver.eisenhut@gmail.com",
 					"friends": ["1","2"],
-					"image_url": "https://lh3.googleusercontent.com/-pczIEOT8Ii0/AAAAAAAAAAI/AAAAAAAAASU/HSEY6s_Znjw/s96-c/photo.jpg"
+					"image_url": "http://i0.kym-cdn.com/photos/images/original/001/176/251/4d7.png"
 				}
 		]
 	}
 	
 	deleteRecord() {
-		
 		console.log('User deleted');
 	}
 	
