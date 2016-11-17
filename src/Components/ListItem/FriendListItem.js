@@ -7,9 +7,7 @@ class FriendListItem extends Component {
   render() {
     return (
 			<div className="FriendWrapper">
-				<div className="image-holder">
-					<img src={this.props.image} alt={this.props.name} />
-				</div>
+				<img src={this.props.image} alt={this.props.name} />
 				
 				<div className="user-info">
 					<h3>{this.props.name}</h3>
