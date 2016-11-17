@@ -1,19 +1,19 @@
 .FriendWrapper {
 	color: #FFF;
+	background-color: #175E60;
 	width: 100%;
-	
+	min-height: 100px;
 	margin: 5px 0;
 	
-	
-    display: -ms-flexbox;
-    display: -webkit-box;
-    display: flex;
+	display: -ms-flexbox;
+	display: -webkit-box;
+	display: flex;
 
-    -webkit-flex-flow: row wrap;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
+	-webkit-flex-flow: row wrap;
+			-ms-flex-wrap: wrap;
+					flex-wrap: wrap;
 
-    -ms-flex-align: center;
+	-ms-flex-align: center;
 	-webkit-box-align: center;
 
 	align-items: center;
@@ -27,10 +27,5 @@
 }
 
 .FriendWrapper img {
-	float: left;
 	max-width: 100px;
-}
-
-.FriendWrapper {
-	border-bottom: 1px solid #B8B8B8;
 }
