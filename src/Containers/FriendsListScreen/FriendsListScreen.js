@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
+
+import Config from '../../config';
 import FriendListItem from '../../Components/ListItem/FriendListItem';
 
 import './FriendsListScreen.css';
@@ -7,24 +9,33 @@ import './FriendsListScreen.css';
 class FriendsListScreen extends Component {
 
 	state = {
-		friends: [
-			 {
-					"id": 1,
-					"prename": "Oliver",
-					"name": "Eisenhut",
-					"email": "oliver.eisenhut@gmail.com",
-					"friends": ["1","2"],
-					"image_url": "https://i.ytimg.com/vi/KEkrWRHCDQU/maxresdefault.jpg"
+		friends: []
+	}
+
+	setFriends(friends) {
+		this.setState({
+			friends : friends
+		});
+	}
+
+	getFriends() {
+		const self = this;
+		fetch(`${Config.API_URL}/friends/${self.props.appState.user.Id}`, {
+				method: 'GET',
+				headers: {
+						'Content-Type': 'application/json'
 				},
-			{
-					"id": 2,
-					"prename": "Oliver",
-					"name": "Eisenhut",
-					"email": "oliver.eisenhut@gmail.com",
-					"friends": ["1","2"],
-					"image_url": "http://i0.kym-cdn.com/photos/images/original/001/176/251/4d7.png"
-				}
-		]
+		}).then(function(response) {
+				return response.json()
+		}).then(function(json) {
+				self.setFriends(json);
+		}).catch(function(ex) {
+				console.log('parsing failed', ex)
+		});
+	}
+
+	componentDidMount() {
+		this.getFriends();
 	}
 
   render() {
