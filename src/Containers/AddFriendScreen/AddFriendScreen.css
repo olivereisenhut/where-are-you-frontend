@@ -1,4 +1,23 @@
-.SearchField {
-	width: 100%;
+
+.search-input {
+  height: 52px;
+  position: relative;
+}
+
+.search-input > input {
+  width: 100%;
+  font-size: 1rem;
+  border: none;
+  line-height: 22px;
+  padding: 25px;
+  position: relative;
 	
+	background-color: #175E60;
+	color: #FFF;
+	padding: 15px;
+	font-size: 1rem;
+}
+
+.search-input > input:focus {
+  outline: none;
 }

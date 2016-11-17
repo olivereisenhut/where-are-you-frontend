@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import SearchInput, {createFilter} from 'react-search-input'
 import FriendListItem from '../../Components/ListItem/FriendListItem';
-import SearchField from '../../Components/Input/SearchField';
 import './AddFriendScreen.css';
 
 const KEYS_TO_FILTERS = ['prename', 'name']
@@ -53,14 +52,6 @@ class AddFriendScreen extends Component {
 	render() {	
 		const filteredUsers = this.state.users.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))		
 	
-		const users = this.state.users.map((user) => {
-			return (
-				<FriendListItem key={user.id} 
-					id={user.id} 
-					name={user.prename + " " +user.name} callback={null} image={user.image_url} callbacklabel={"add"}/>
-				);
-		})
-			
 		return (
 			<div className="AddFriendContainer">
 				<div className="container">
