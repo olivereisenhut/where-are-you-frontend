@@ -7,10 +7,16 @@ class FriendListItem extends Component {
   render() {
     return (
 			<div className="FriendWrapper">
-				<img src={this.props.image} alt={this.props.name} />
-				<p>{this.props.id}</p>
-				<p>{this.props.name}</p>
-				<Button callback={this.props.callback} label={this.props.callbacklabel}/>
+				<div className="image-holder">
+					<img src={this.props.image} alt={this.props.name} />
+				</div>
+				
+				<div className="user-info">
+					<h3>{this.props.name}</h3>
+				</div>
+				<div className="action-panel">
+					<Button callback={this.props.callback} label={this.props.callbacklabel}/>
+				</div>
 			</div>
 		);
   }

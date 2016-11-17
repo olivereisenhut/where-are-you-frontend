@@ -15,8 +15,24 @@ class AddFriendScreen extends Component {
 					"friends": ["1","2"],
 					"image_url": "http://kingofwallpapers.com/lama/lama-006.jpg"
 				},
-			{
+				{
 					"id": 2,
+					"prename": "Oliver",
+					"name": "Eisenhut",
+					"email": "oliver.eisenhut@gmail.com",
+					"friends": ["1","2"],
+					"image_url": "http://kingofwallpapers.com/lama/lama-006.jpg"
+				},
+				{
+					"id": 3,
+					"prename": "Oliver",
+					"name": "Eisenhut",
+					"email": "oliver.eisenhut@gmail.com",
+					"friends": ["1","2"],
+					"image_url": "http://kingofwallpapers.com/lama/lama-006.jpg"
+				},
+				{
+					"id": 4,
 					"prename": "Oliver",
 					"name": "Eisenhut",
 					"email": "oliver.eisenhut@gmail.com",
@@ -31,7 +47,7 @@ class AddFriendScreen extends Component {
 			return (
 				<FriendListItem key={user.id} 
 					id={user.id} 
-					name={user.name} callback={null} image={user.image_url} callbacklabel={"add"}/>
+					name={user.prename + " " +user.name} callback={null} image={user.image_url} callbacklabel={"add"}/>
 				);
 		});
 		

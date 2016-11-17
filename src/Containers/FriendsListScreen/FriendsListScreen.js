@@ -35,7 +35,7 @@ class FriendsListScreen extends Component {
 			return (
 				<FriendListItem key={friend.id} 
 					id={friend.id} 
-					name={friend.name} callbacklabel='Delete' callback={this.deleteRecord} image={friend.image_url}/>
+					name={friend.prename +" "+ friend.name} callbacklabel='Delete' callback={this.deleteRecord} image={friend.image_url}/>
 				);
 		});
 		
