@@ -37,6 +37,13 @@ class App extends Component {
       window.setInterval(this.sendLocation, 5000);
     }
 
+    componentDidMount() {
+      //check if user is logged in
+      if (!this.state.user.Id && this.props.location.pathname !== '/login') {
+        this.props.router.push('/login');
+      }
+    }
+
     sendLocation = (coordinates) => {
       if (this.state.user.Id) {
 				const newCoords = {
@@ -129,7 +136,6 @@ class App extends Component {
             return response.json()
         }).then(function(json) {
             self.setNewUser(json);
-            self.props.router.goBack();
         }).catch(function(ex) {
             console.log('parsing failed', ex)
         });
@@ -137,10 +143,7 @@ class App extends Component {
 
 
   render() {
-    //check if user is logged in
-    if (!this.state.user.Id && this.props.location.pathname !== '/login') {
-      this.props.router.push('/login');
-    }
+
     //pass appState to all direct children
     const childrenWithAppState = React.Children.map(this.props.children,
      (child) => React.cloneElement(child, {
