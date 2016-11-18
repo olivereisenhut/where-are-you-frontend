@@ -11,20 +11,20 @@ class FriendListItem extends Component {
 
   render() {
     return (
-      <Link to={`/track/${this.props.id}`}>
-			<div className="friend-wrapper">
 
+			<div className="friend-wrapper">
+          <Link to={`/track/${this.props.id}`}>
 			      <img src={this.props.image} alt={this.props.name} />
 
 				    <div className="user-info">
 					     <h3>{this.props.name}</h3>
 				    </div>
-				    <div className="action-panel">
-					     <Button callback={this.handleDeleteUser} label={this.props.callbacklabel}/>
-				    </div>
+          </Link>
+			    <div className="action-panel">
+				     <Button callback={this.handleDeleteUser} label={this.props.callbacklabel}/>
+			    </div>
 
 			</div>
-      </Link>
 		);
   }
 }
