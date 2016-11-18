@@ -29,3 +29,7 @@
 .friend-wrapper img {
 	max-width: 96px;
 }
+
+a {
+	text-decoration: none;
+}
