@@ -13,8 +13,7 @@ class App extends Component {
       window.setInterval(this.sendLocation, 5000);
     }
 
-    sendLocation(coordinates) {
-      //TODO send this stuff to the api
+    sendLocation = (coordinates) => {
       if (this.state.user.Id) {
         const self = this;
         fetch(`${Config.API_URL}/coordinate/${self.state.user.Id}`, {
