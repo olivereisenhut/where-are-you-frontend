@@ -7,7 +7,7 @@ import './App.css';
 
 const geolocation = (
   canUseDOM && navigator.geolocation ?
-  navigator.geolocation : 
+  navigator.geolocation :
   ({
     getCurrentPosition(success, failure) {
       failure(`Your browser doesn't support geolocation.`);
@@ -19,7 +19,7 @@ class App extends Component {
 
     constructor(props) {
       super(props);
-			
+
 			// get user location
 			geolocation.getCurrentPosition((position) => {
 				if (this.isUnmounted) {
@@ -86,12 +86,6 @@ class App extends Component {
 			this.setState({position: positionData});
 		}
 
-		componentDidMount() {
-			if (!this.state.user.Id && this.props.location.pathname !== '/login') {
-				this.props.router.push('/login');
-			}
-		}
-
 		handleDeleteUser = (friendId) => {
       if (!friendId) {
         console.log("No friend id defined")
@@ -135,6 +129,7 @@ class App extends Component {
             return response.json()
         }).then(function(json) {
             self.setNewUser(json);
+            self.props.router.goBack();
         }).catch(function(ex) {
             console.log('parsing failed', ex)
         });
@@ -142,6 +137,11 @@ class App extends Component {
 
 
   render() {
+    //check if user is logged in
+    if (!this.state.user.Id && this.props.location.pathname !== '/login') {
+      this.props.router.push('/login');
+    }
+    //pass appState to all direct children
     const childrenWithAppState = React.Children.map(this.props.children,
      (child) => React.cloneElement(child, {
        appState: this.state,

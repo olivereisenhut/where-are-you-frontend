@@ -42,10 +42,10 @@ class AddFriendScreen extends Component {
 	searchUpdated = (term) => {
 		this.setState({searchTerm: term});
   }
-	
-	
+
+
 	addFriend = (newFriendId) => {
-		const self = this;
+		
 		fetch(`${Config.API_URL}/friends/${this.props.appState.user.Id}/${newFriendId}`, {
 				method: 'POST',
 				headers: {
