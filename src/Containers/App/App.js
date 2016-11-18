@@ -23,7 +23,7 @@ class App extends Component {
                 'Content-Type': 'application/json'
             },
         }).then(function(coordinates) {
-            return response.json()
+            return coordinates.json()
         }).then(function(json) {
             self.setNewUser(json);
         }).catch(function(ex) {
