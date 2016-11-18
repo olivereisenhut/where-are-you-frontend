@@ -7,7 +7,7 @@ import './TrackerMap.css';
 const SimpleMapExampleGoogleMap = withGoogleMap(props => (
   <GoogleMap
 		ref={props.onMapLoad}
-    defaultZoom={14}
+    defaultZoom={3}
     defaultCenter={{ lat: 47.0478519, lng: 9.440610500000048 }}
 		center={props.center}
   >

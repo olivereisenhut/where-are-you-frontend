@@ -7,7 +7,7 @@ class MapScreen extends Component {
 	
   render() {
 		return (
-			<div style={{height: '400px' }}>        
+			<div className="map-container">        
 				<TrackerMap id={this.props.params.userId} appState={this.props.appState} />
 				<div className="container text-center">
 					<Link to="/friends">Back</Link>
