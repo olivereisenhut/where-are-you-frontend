@@ -22,3 +22,8 @@ body {
 .text-center {
 	text-align: center;
 }
+
+
+a:visited {
+	color: inherit;
+}
