@@ -5,16 +5,16 @@ import './MapScreen.css';
 
 class MapScreen extends Component {
 	
-  render() {
+	render() {
 		return (
 			<div className="map-container">        
 				<TrackerMap id={this.props.params.userId} appState={this.props.appState} />
 				<div className="container text-center">
-					<Link to="/friends">Back</Link>
+					<Link to="/friends" className="button">Back</Link>
 				</div>
 			</div>
-    );
-  }
+		);
+	}
 }
 
 export default MapScreen;

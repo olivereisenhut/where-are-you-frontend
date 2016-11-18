@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
-
 import Config from '../../config';
 import SearchInput, {createFilter} from 'react-search-input'
 import FriendListItem from '../../Components/ListItem/FriendListItem';
@@ -23,10 +22,10 @@ class AddFriendScreen extends Component {
 		const self = this;
 
 		fetch(`${Config.API_URL}/user/`, {
-				method: 'GET',
-				headers: {
-						'Content-Type': 'application/json'
-				}
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			}
 		}).then(function(response) {
 				return response.json()
 		}).then(function(json) {
@@ -35,15 +34,16 @@ class AddFriendScreen extends Component {
 				console.log('parsing failed', ex)
 		});
 	}
+	
 	componentDidMount() {
 		this.fetchUser();
 	}
 
 	searchUpdated = (term) => {
 		this.setState({searchTerm: term});
-  }
+  	}
 
-
+	// add a friend to the current user
 	addFriend = (newFriendId) => {
 		fetch(`${Config.API_URL}/friends/${this.props.appState.user.Id}/${newFriendId}`, {
 				method: 'POST',
@@ -60,6 +60,7 @@ class AddFriendScreen extends Component {
 	}
 
 	render() {
+		// list with friends, filtered by react-search
 		const filteredUsers = this.state.users.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
 
 		return (
@@ -78,11 +79,11 @@ class AddFriendScreen extends Component {
 						);
 					})}
 
-					<Link to="/friends">Back</Link>
+					<Link to="/friends" className="button">Back</Link>
 				</div>
 			</div>
-    );
-  }
+    	);
+  	}
 }
 
 export default AddFriendScreen;

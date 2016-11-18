@@ -4,34 +4,32 @@ import Config from '../../config';
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 import './TrackerMap.css';
 
-const SimpleMapExampleGoogleMap = withGoogleMap(props => (
-  <GoogleMap
+// predefined google map component with data from props
+const CustomGoogleMap = withGoogleMap(props => (
+	<GoogleMap
 		ref={props.onMapLoad}
-    defaultZoom={3}
-    defaultCenter={{ lat: 47.0478519, lng: 9.440610500000048 }}
-		center={props.center}
-  >
+		defaultZoom={3}
+    	defaultCenter={{ lat: 47.0478519, lng: 9.440610500000048 }}
+		center={props.center}>
 		{props.markers.map(marker => (
-      <Marker
-        {...marker}
-      />
-    ))}
+      	<Marker {...marker} />
+    	))}
 	</GoogleMap>
 ));
 
 class TrackerMap extends Component {
 
-	 constructor(props) {
-      super(props);
+ 	constructor(props) {
+      	super(props);
 	
-      //send all five seconds the location to the api
-      window.setInterval(this.fetchTargetCoordinates, 5000);
-    }
+	  	//send all five seconds the location to the api
+		window.setInterval(this.fetchTargetCoordinates, 5000);
+	}
 	
 	state = {
-    center: null,
-    markers: [{
-			label: 'Target',
+		center: null,
+		markers: [{
+			label: 'Friend',
 			key: 'Target',
 			position: {
 				lat: 0,
@@ -39,7 +37,7 @@ class TrackerMap extends Component {
 			}
 		}],
 		targetCoordinates: {}
-  };
+  	};
 	
 	// get coordinates from target (this.props.id)
 	fetchTargetCoordinates = () => {
@@ -69,16 +67,16 @@ class TrackerMap extends Component {
 
 			// update marker 
 			for (var i = 0; i < updatedMarkers.length; i++) {
-				if (updatedMarkers[i].label === 'Target') {
+				if (updatedMarkers[i].label === 'Friend') {
 					updatedMarkers[i].position.lat = data['latitude'];
 					updatedMarkers[i].position.lng = data['longitude'];
 					updatedMarkers[i].defaultAnimation = 0;
-					updatedMarkers[i].title = "My targets location";
+					updatedMarkers[i].title = "My friends location";
 					
 					// important: key needs to be new. Otherwise the GoogleMap component won't be updated
 					updatedMarkers[i].key = Date.now() + Math.random();
 				}
-    	}
+    		}
 			
 			this.setState({
 				markers: updatedMarkers,
@@ -92,8 +90,7 @@ class TrackerMap extends Component {
 	
 	// compare coordinates to see if target user moved
 	targetMoved = (newLatitude, newLongitude) => {
-		if(this.state.targetCoordinates.lat === newLatitude && 
-			 this.state.targetCoordinates.lng === newLongitude) {
+		if(this.state.targetCoordinates.lat === newLatitude && this.state.targetCoordinates.lng === newLongitude) {
 			return false;
 		}
 		return true;
@@ -127,38 +124,34 @@ class TrackerMap extends Component {
 	}
 
 	// Handle Map and markers
-  isUnmounted = false;
-	handleMapLoad = this.handleMapLoad.bind(this);
-	handleMapLoad(map) {
-    this._mapComponent = map;
-  }
+	isUnmounted = false;
+		handleMapLoad = this.handleMapLoad.bind(this);
+		handleMapLoad(map) {
+		this._mapComponent = map;
+	}
 
 	componentDidMount() {
+		// component loaded, get coordinates
 		this.fetchTargetCoordinates();
 		this.setUserPosition();	
-  }
+  	}
 
 
-  componentWillUnmount() {
-    this.isUnmounted = true;
-  }
+	componentWillUnmount() {
+		// component is unmounted
+		this.isUnmounted = true;
+	}
 
-  render() {
-				
-    return (
-		 	<SimpleMapExampleGoogleMap
-				containerElement={
-          <div style={{ height: `100%` }} />
-        }
-				mapElement={
-          <div style={{ height: `100%` }} />
-        }
+	render() {
+    	return (
+		 	<CustomGoogleMap
+				containerElement={ <div style={{ height: `100%` }} /> }
+				mapElement={ <div style={{ height: `100%` }} /> }
 				center={this.state.center}
-        onMapLoad={this.handleMapLoad}
-				markers={this.state.markers}
-      />
-    );
-  }
+        		onMapLoad={this.handleMapLoad}
+				markers={this.state.markers} />
+    	);
+  	}
 }
 
 export default TrackerMap;

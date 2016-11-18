@@ -1,4 +1,4 @@
-.Button {
+.button {
   background-color: transparent;
   border: none;
   color: white;
@@ -11,6 +11,6 @@
   transition-duration: 0.4s;
   cursor: pointer;
 }
-.Button:hover {
+.button:hover {
   color: #CFCFCF;
 }

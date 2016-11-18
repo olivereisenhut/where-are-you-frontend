@@ -6,26 +6,25 @@ import canUseDOM from "can-use-dom";
 import './App.css';
 
 const geolocation = (
-  canUseDOM && navigator.geolocation ?
-  navigator.geolocation :
-  ({
-    getCurrentPosition(success, failure) {
-      failure(`Your browser doesn't support geolocation.`);
-    },
-  })
+	canUseDOM && navigator.geolocation ? 
+	navigator.geolocation : ({
+		getCurrentPosition(success, failure) {
+	  		failure(`Your browser doesn't support geolocation.`);
+		},
+	})
 );
 
 class App extends Component {
 
     constructor(props) {
-      super(props);
+		super(props);
 
-			// get user location
-			geolocation.getCurrentPosition((position) => {
-				if (this.isUnmounted) {
-					return;
-				}
-				this.updatePosition(position.coords); // success
+		// get current users location
+		geolocation.getCurrentPosition((position) => {
+			if (this.isUnmounted) {
+				return;
+			}
+			this.updatePosition(position.coords); // success
 			}, (reason) => {
 				if (this.isUnmounted) {
 					return;
@@ -44,83 +43,83 @@ class App extends Component {
       }
     }
 
+	// save current users coordinates to API
     sendLocation = (coordinates) => {
-      if (this.state.user.Id) {
-				const newCoords = {
-					lat: this.state.position.latitude,
-					long: this.state.position.longitude
-				};
+  		if (this.state.user.Id) {
+			const newCoords = {
+				lat: this.state.position.latitude,
+				long: this.state.position.longitude
+			};
 
-				const self = this;
-        fetch(`${Config.API_URL}/coordinate/${self.state.user.Id}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-						body: JSON.stringify(newCoords)
-        }).then(function(coordinates) {
-            return coordinates.json()
-        }).then(function(json) {
-						// coordinates in json
-        }).catch(function(ex) {
-            console.log('parsing failed', ex)
-        });
-      }
-
+			const self = this;
+			fetch(`${Config.API_URL}/coordinate/${self.state.user.Id}`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(newCoords)
+			}).then(function(coordinates) {
+				return coordinates.json()
+			}).then(function(json) {
+				// coordinates in json
+			}).catch(function(ex) {
+				console.log('parsing failed', ex)
+			});
+      	}
     }
 
     state = {
-			user: {},
-			position: {}
+		user: {},
+		position: {}
     };
 
     setNewUser(userData) {
-      this.setState({
-        user: {
-          Id: userData['id'],
-          Prename: userData['prename'],
-          Name: userData['name'],
-          Email: userData['email'],
-          GoogleTokenId: userData['google_id_token'],
-          ImageUrl: userData['image_url'],
-          Friends: userData['friends']
-        }
-      });
+  		this.setState({
+			user: {
+				Id: userData['id'],
+				Prename: userData['prename'],
+				Name: userData['name'],
+				Email: userData['email'],
+				GoogleTokenId: userData['google_id_token'],
+				ImageUrl: userData['image_url'],
+				Friends: userData['friends']
+			}
+      	});
     }
 
-		updatePosition = (positionData) => {
-			this.setState({position: positionData});
-		}
+	updatePosition = (positionData) => {
+		this.setState({position: positionData});
+	}
 
-		handleDeleteUser = (friendId) => {
-      if (!friendId) {
-        console.log("No friend id defined")
-      }
+	handleDeleteUser = (friendId) => {
+  		if (!friendId) {
+        	console.log("No friend id defined")
+      	}
 
-      const self = this;
+      	const self = this;
 
-      fetch(`${Config.API_URL}/friends/${self.state.user.Id}/${friendId}`, {
-          method: 'DELETE',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-      }).then(function(response) {
-          return response.json()
-      }).then(function(json) {
-          self.setNewUser(json);
-      }).catch(function(ex) {
-          console.log('parsing failed', ex)
-      });
-		}
+		fetch(`${Config.API_URL}/friends/${self.state.user.Id}/${friendId}`, {
+			method: 'DELETE',
+			headers: {
+			  'Content-Type': 'application/json'
+		  	}
+		}).then(function(response) {
+		  	return response.json()
+		}).then(function(json) {
+		  	self.setNewUser(json);
+		}).catch(function(ex) {
+		  	console.log('parsing failed', ex)
+		});
+	}
 
     handleLogin = (data) => {
         const profile = data['profileObj']
         const newUser = {
-          Name: profile['familyName'],
-          Prename: profile['givenName'],
-          Mail: profile['email'],
-          TokenId: data['tokenId'],
-          ImageUrl: profile['imageUrl']
+			Name: profile['familyName'],
+			Prename: profile['givenName'],
+			Mail: profile['email'],
+			TokenId: data['tokenId'],
+			ImageUrl: profile['imageUrl']
         };
 
         const self = this;
@@ -141,26 +140,25 @@ class App extends Component {
     }
 
 
-  render() {
+  	render() {
+		//pass appState to all direct children
+		const childrenWithAppState = React.Children.map(this.props.children, 
+			(child) => React.cloneElement(child, {
+				appState: this.state,
+				handleLogin: this.handleLogin,
+				handleDeleteUser: this.handleDeleteUser
+			})
+    	);
 
-    //pass appState to all direct children
-    const childrenWithAppState = React.Children.map(this.props.children,
-     (child) => React.cloneElement(child, {
-       appState: this.state,
-       handleLogin: this.handleLogin,
-			 handleDeleteUser: this.handleDeleteUser
-     })
-    );
-
-    return (
-      <div className="App">
-        <Header title="Where Are You"/>
-        <main className="Content">
-          {childrenWithAppState}
-        </main>
-      </div>
-    );
-  }
+		return (
+			<div className="App">
+				<Header title="Where Are You"/>
+				<main className="Content">
+					{childrenWithAppState}
+				</main>
+			</div>
+		);
+	}
 }
 
 export default App;

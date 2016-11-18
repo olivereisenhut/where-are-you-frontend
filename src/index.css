@@ -16,14 +16,36 @@ body {
   margin: 0 auto;
   padding: 0 20px;
   box-sizing: border-box; 
-	padding-top: 20px;
+	padding-top: 10px;
 }
 
 .text-center {
 	text-align: center;
 }
 
-
 a:visited {
 	color: inherit;
+}
+
+.button {
+	display: inline-block;
+	padding: 10px 35px;
+	background-color: #175E60;
+	color: #FFF !important;
+	transition: all 0.3s ease;
+	z-index: 10;
+}
+
+.button:hover {
+	background-color: #155557;
+}
+
+.button:before {
+	right: 100%;
+	background-color: white;
+	z-index: 11;
+}
+
+.button:hover:before {
+	right: 0;
 }
