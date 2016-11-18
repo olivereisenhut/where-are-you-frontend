@@ -75,7 +75,7 @@ class AddFriendScreen extends Component {
 								name={`${user.prename} ${user.name}`}
 								callback={this.addFriend}
 								image={user.image_url}
-								callbacklabel={"add"}/>
+								callbacklabel={"Add"}/>
 						);
 					})}
 
