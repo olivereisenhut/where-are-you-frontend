@@ -12,40 +12,7 @@ class AddFriendScreen extends Component {
 
 	state = {
 		searchTerm: '',
-		users: [
-			 {
-					"id": 1,
-					"prename": "Oliver",
-					"name": "Eisenhut",
-					"email": "oliver.eisenhut@gmail.com",
-					"friends": ["1","2"],
-					"image_url": "http://66.media.tumblr.com/tumblr_m4e4qrhUre1qg4429o1_1280.jpg"
-				},
-				{
-					"id": 2,
-					"prename": "Dario",
-					"name": "Gartmann",
-					"email": "oliver.eisenhut@gmail.com",
-					"friends": ["1","2"],
-					"image_url": "http://kingofwallpapers.com/lama/lama-006.jpg"
-				},
-				{
-					"id": 3,
-					"prename": "Michael",
-					"name": "Mattle",
-					"email": "oliver.eisenhut@gmail.com",
-					"friends": ["1","2"],
-					"image_url": "http://kingofwallpapers.com/lama/lama-006.jpg"
-				},
-				{
-					"id": 4,
-					"prename": "Oliver",
-					"name": "Eisenhut",
-					"email": "oliver.eisenhut@gmail.com",
-					"friends": ["1","2"],
-					"image_url": "http://kingofwallpapers.com/lama/lama-006.jpg"
-				}
-		]
+		users: []
 	}
 
 	setUser = (users) => {
@@ -75,6 +42,23 @@ class AddFriendScreen extends Component {
 	searchUpdated = (term) => {
 		this.setState({searchTerm: term});
   }
+	
+	
+	addFriend = (newFriendId) => {
+		const self = this;
+		fetch(`${Config.API_URL}/friends/${this.props.appState.user.Id}/${newFriendId}`, {
+				method: 'POST',
+				headers: {
+						'Content-Type': 'application/json'
+				}
+		}).then(function(response) {
+				return response.json()
+		}).then(function(json) {
+				console.log(json);
+		}).catch(function(ex) {
+				console.log('parsing failed', ex)
+		});
+	}
 
 	render() {
 		const filteredUsers = this.state.users.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
@@ -89,7 +73,7 @@ class AddFriendScreen extends Component {
 								key={user.id}
 								id={user.id}
 								name={`${user.prename} ${user.name}`}
-								callback={null}
+								callback={this.addFriend}
 								image={user.image_url}
 								callbacklabel={"add"}/>
 						);
