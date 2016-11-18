@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import Config from '../../config';
 
-import canUseDOM from "can-use-dom";
-import raf from "raf";
-
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 import './TrackerMap.css';
 
@@ -22,21 +19,25 @@ const SimpleMapExampleGoogleMap = withGoogleMap(props => (
 	</GoogleMap>
 ));
 
-const geolocation = (
-  canUseDOM && navigator.geolocation ?
-  navigator.geolocation : 
-  ({
-    getCurrentPosition(success, failure) {
-      failure(`Your browser doesn't support geolocation.`);
-    },
-  })
-);
-
 class TrackerMap extends Component {
 
+	 constructor(props) {
+      super(props);
+	
+      //send all five seconds the location to the api
+      window.setInterval(this.fetchTargetCoordinates, 5000);
+    }
+	
 	state = {
     center: null,
-    markers: [],
+    markers: [{
+			label: 'Target',
+			key: 'Target',
+			position: {
+				lat: 0,
+				lng: 0
+			}
+		}],
 		targetCoordinates: {}
   };
 	
@@ -44,7 +45,7 @@ class TrackerMap extends Component {
 	fetchTargetCoordinates = () => {
 		const self = this;
 				
-		fetch(`${Config.API_URL}/coordinate/${this.props.id}`, {
+		fetch(`${Config.API_URL}/coordinate/${self.props.id}`, {
 				method: 'GET',
 				headers: {
 						'Content-Type': 'application/json'
@@ -60,17 +61,25 @@ class TrackerMap extends Component {
 
 	// update markers and state of target coordinates
 	updateTargetCoordinates = (data) => {
-		const updatedMarkers = [
-      	...this.state.markers,
-      	{
-        	position: {lat: data['latitude'], lng: data['longitude']},
-        	defaultAnimation: 0,
-					title: 'My targets location',
-					label: 'T',
-        	key: data['user_id']
-      	}
-    	];
+		var longitude = data['longitude'];
+		var latitude = data['latitude'];
+		
+		if(this.targetMoved(latitude, longitude)) {
+			const updatedMarkers = this.state.markers;
+
+			// update marker 
+			for (var i = 0; i < updatedMarkers.length; i++) {
+				if (updatedMarkers[i].label === 'Target') {
+					updatedMarkers[i].position.lat = data['latitude'];
+					updatedMarkers[i].position.lng = data['longitude'];
+					updatedMarkers[i].defaultAnimation = 0;
+					updatedMarkers[i].title = "My targets location";
 					
+					// important: key needs to be new. Otherwise the GoogleMap component won't be updated
+					updatedMarkers[i].key = Date.now() + Math.random();
+				}
+    	}
+			
 			this.setState({
 				markers: updatedMarkers,
 				targetCoordinates: {
@@ -78,19 +87,25 @@ class TrackerMap extends Component {
 					lng: data['longitude']
 				}
 			});	
+		}
+	}
+	
+	// compare coordinates to see if target user moved
+	targetMoved = (newLatitude, newLongitude) => {
+		if(this.state.targetCoordinates.lat === newLatitude && 
+			 this.state.targetCoordinates.lng === newLongitude) {
+			return false;
+		}
+		return true;
 	}
 	
 	// sets center of map to current position and adds marker
-	setUserPosition = () => {
-		
-		console.log(this.props);
-		
+	setUserPosition = () => {		
 		this.setState({
 			center: {
 				lat: this.props.appState.position.latitude,
 				lng: this.props.appState.position.longitude,
-			},
-			content: `Location found using HTML5.`,
+			}
 		});
 
 		const nextMarkers = [

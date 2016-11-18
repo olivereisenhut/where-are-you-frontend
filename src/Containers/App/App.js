@@ -43,8 +43,8 @@ class App extends Component {
 					lat: this.state.position.latitude,
 					long: this.state.position.longitude
 				};
-				console.log(newCoords);
-        const self = this;
+
+				const self = this;
         fetch(`${Config.API_URL}/coordinate/${self.state.user.Id}`, {
             method: 'POST',
             headers: {
@@ -54,7 +54,7 @@ class App extends Component {
         }).then(function(coordinates) {
             return coordinates.json()
         }).then(function(json) {
-						console.log(json);
+						// coordinates in json
         }).catch(function(ex) {
             console.log('parsing failed', ex)
         });
@@ -63,8 +63,7 @@ class App extends Component {
     }
 
     state = {
-			user: {
-			},
+			user: {},
 			position: {}
     };
 
