@@ -1,13 +1,37 @@
 import React, { Component } from 'react';
 import Config from '../../config';
 import Header from '../../Components/Header/Header';
+import canUseDOM from "can-use-dom";
 
 import './App.css';
+
+const geolocation = (
+  canUseDOM && navigator.geolocation ?
+  navigator.geolocation : 
+  ({
+    getCurrentPosition(success, failure) {
+      failure(`Your browser doesn't support geolocation.`);
+    },
+  })
+);
 
 class App extends Component {
 
     constructor(props) {
       super(props);
+			
+			// get user location
+			geolocation.getCurrentPosition((position) => {
+				if (this.isUnmounted) {
+					return;
+				}
+				this.updatePosition(position.coords); // success
+			}, (reason) => {
+				if (this.isUnmounted) {
+					return;
+				}
+				console.log("Error: Couldn't get location!")
+			});
 
       //send all five seconds the location to the api
       window.setInterval(this.sendLocation, 5000);
@@ -15,16 +39,22 @@ class App extends Component {
 
     sendLocation = (coordinates) => {
       if (this.state.user.Id) {
+				const newCoords = {
+					lat: this.state.position.latitude,
+					long: this.state.position.longitude
+				};
+				console.log(newCoords);
         const self = this;
         fetch(`${Config.API_URL}/coordinate/${self.state.user.Id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
+						body: JSON.stringify(newCoords)
         }).then(function(coordinates) {
             return coordinates.json()
         }).then(function(json) {
-            self.setNewUser(json);
+						console.log(json);
         }).catch(function(ex) {
             console.log('parsing failed', ex)
         });
@@ -33,8 +63,9 @@ class App extends Component {
     }
 
     state = {
-        user: {
-        }
+			user: {
+			},
+			position: {}
     };
 
     setNewUser(userData) {
@@ -50,6 +81,10 @@ class App extends Component {
         }
       });
     }
+
+		updatePosition = (positionData) => {
+			this.setState({position: positionData});
+		}
 
 		componentDidMount() {
 			if (!this.state.user.Id && this.props.location.pathname !== '/login') {

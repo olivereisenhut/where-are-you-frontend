@@ -37,15 +37,29 @@ class TrackerMap extends Component {
 	state = {
     center: null,
     markers: [],
-		coordinates: {
-			lat: 3,
-			lng: 2
-		}
+		targetCoordinates: {}
   };
+	
+	// get coordinates from target (this.props.id)
+	fetchTargetCoordinates = () => {
+		const self = this;
+				
+		fetch(`${Config.API_URL}/coordinate/${this.props.id}`, {
+				method: 'GET',
+				headers: {
+						'Content-Type': 'application/json'
+				}
+		}).then(function(response) {
+				return response.json()
+		}).then(function(json) {
+				self.updateTargetCoordinates(json);
+		}).catch(function(ex) {
+				console.log('parsing failed', ex)
+		});	
+	}
 
-	// handle coordinates
-	updateCoordinates(data) {
-		
+	// update markers and state of target coordinates
+	updateTargetCoordinates = (data) => {
 		const updatedMarkers = [
       	...this.state.markers,
       	{
@@ -59,32 +73,43 @@ class TrackerMap extends Component {
 					
 			this.setState({
 				markers: updatedMarkers,
-				coordinates: {
+				targetCoordinates: {
 					lat: data['latitude'],
 					lng: data['longitude']
 				}
-			});
+			});	
+	}
+	
+	// sets center of map to current position and adds marker
+	setUserPosition = () => {
 		
-	}
-	
-	getCoordinates() {
-		const self = this;
-				
-		fetch(`${Config.API_URL}/coordinate/${this.props.id}`, {
-				method: 'GET',
-				headers: {
-						'Content-Type': 'application/json'
-				}
-		}).then(function(response) {
-				return response.json()
-		}).then(function(json) {
-				self.updateCoordinates(json);
-		}).catch(function(ex) {
-				console.log('parsing failed', ex)
-		});	
-	}
-	
+		console.log(this.props);
+		
+		this.setState({
+			center: {
+				lat: this.props.appState.position.latitude,
+				lng: this.props.appState.position.longitude,
+			},
+			content: `Location found using HTML5.`,
+		});
 
+		const nextMarkers = [
+			...this.state.markers,
+			{
+				position: {
+					lat: this.props.appState.position.latitude, 
+					lng: this.props.appState.position.longitude
+				},
+				defaultAnimation: 0,
+				title: "My location",
+				label: "Me",
+				key: Date.now()
+			}
+		];
+		this.setState({
+			markers: nextMarkers,
+		});
+	}
 
 	// Handle Map and markers
   isUnmounted = false;
@@ -94,57 +119,8 @@ class TrackerMap extends Component {
   }
 
 	componentDidMount() {
-		
-		this.getCoordinates();
-		
-    const tick = () => {
-      if (this.isUnmounted) {
-        return;
-      }
-
-      if (this.state.radius > 200) {
-        raf(tick);
-      }
-    };
-    geolocation.getCurrentPosition((position) => {
-      if (this.isUnmounted) {
-        return;
-      }
-      this.setState({
-        center: {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        },
-        content: `Location found using HTML5.`,
-      });
-			
-  		const nextMarkers = [
-      	...this.state.markers,
-      	{
-        	position: {lat: position.coords.latitude, lng: position.coords.longitude},
-        	defaultAnimation: 0,
-					title: "My location",
-					label: "Me",
-        	key: Date.now() // Add a key property for: http://fb.me/react-warning-keys
-      	}
-    	];
-			this.setState({
-				markers: nextMarkers,
-			});
-			
-      raf(tick);
-    }, (reason) => {
-      if (this.isUnmounted) {
-        return;
-      }
-      this.setState({
-        center: {
-          lat: 60,
-          lng: 105,
-        },
-        content: `Error: The Geolocation service failed (${reason}).`,
-      });
-    });
+		this.fetchTargetCoordinates();
+		this.setUserPosition();	
   }
 
 
