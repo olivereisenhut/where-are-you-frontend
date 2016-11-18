@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
 
+import Config from '../../config';
 import SearchInput, {createFilter} from 'react-search-input'
 import FriendListItem from '../../Components/ListItem/FriendListItem';
 import './AddFriendScreen.css';
@@ -45,6 +46,30 @@ class AddFriendScreen extends Component {
 					"image_url": "http://kingofwallpapers.com/lama/lama-006.jpg"
 				}
 		]
+	}
+
+	setUser = (users) => {
+		this.setState({users: users});
+	}
+
+	fetchUser = () => {
+		const self = this;
+
+		fetch(`${Config.API_URL}/user/`, {
+				method: 'GET',
+				headers: {
+						'Content-Type': 'application/json'
+				}
+		}).then(function(response) {
+				return response.json()
+		}).then(function(json) {
+				self.setUser(json);
+		}).catch(function(ex) {
+				console.log('parsing failed', ex)
+		});
+	}
+	componentDidMount() {
+		this.fetchUser();
 	}
 
 	searchUpdated = (term) => {
